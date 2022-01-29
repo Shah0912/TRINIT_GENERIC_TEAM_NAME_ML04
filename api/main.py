@@ -1,5 +1,5 @@
-import joblib
-from flask import Flask,request
+import joblib 
+from flask import Flask,request , jsonify
 import json
 import numpy as np
 app=Flask(__name__)
@@ -13,7 +13,8 @@ def predict():
     pre = pre.reshape(1,-1)
     res=model.predict(pre)
     print(res)
-    return "1"
+   
+    return str(res)
 
 if __name__ == '__main__':
     app.run(debug=True)
