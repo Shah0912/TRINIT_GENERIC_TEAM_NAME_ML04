@@ -1,17 +1,17 @@
 
+import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import DisplayResult from './components/DisplayResult';
+import MultiStock from './components/MultiStock';
 
 function App() {
   return (
-    <div style={{
-      width:"100%",
-      height:"100vh",
-      display:"grid",
-      placeItems:"center"
-    }}>
-     <DisplayResult/>
-    </div>
+    <Routes>
+    <Route path="/" element={<DisplayResult/>} />
+    <Route path="/multi" element={<MultiStock/>} />
+    </Routes>
+     
+   
   );
 }
 

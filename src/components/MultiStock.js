@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {useState} from 'react'
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -8,6 +9,9 @@ import Link from '@mui/material/Link';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
+import DatePicker from "react-datepicker";
+
+import "react-datepicker/dist/react-datepicker.css";
 // import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -27,10 +31,11 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-export default function DisplayResult() {
-  
+export default function MultiStock() {
+    const [startDate, setStartDate] = useState(new Date());
 
   return (
+      
     <ThemeProvider theme={theme}>
       <Grid container component="main" sx={{ height: '100vh' }}>
         <CssBaseline />
@@ -60,66 +65,25 @@ export default function DisplayResult() {
           >
            
             <Typography component="h1" variant="h5">
-              Stock Price Prediction
+              Stock Price Prediction(Multistock)
             </Typography>
-            <Box component="form"  sx={{ mt: 1 }}>
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                color="primary"
-                id="open"
-                label="Open"
-                name="open"
-               
-                autoFocus
-              />
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                name="high"
-                label="High"
-                type="high"
-                id="high"
-               
-              />
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                name="low"
-                label="Low"
-                type="low"
-                id="low"
-               
-              />
-              <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="close"
-              label="Close"
-              type="close"
-              id="close"
-             
-            />
-            <TextField
-            margin="normal"
-            required
-            fullWidth
-            name="volume"
-            label="Volume"
-            type="volume"
-            id="volume"
-           
-          />
+            <Box component="form"  sx={{ mt: 5 }}>
+            <div style={{
+                display:"flex",
+                alignItems:"center",
+                justifyContent:"center"
+            }}>
+            <DatePicker 
+            
+            selected={startDate} onChange={(date) => setStartDate(date)} />
+            </div>
               <Button
                 type="submit"
                 fullWidth
                 variant="contained"
                 style={{
-                    borderRadius:"99999px"
+                    borderRadius:"99999px",
+                    marginTop:"60px"
                 }}
                 color="secondary"
                 sx={{ mt: 3, mb: 2 }}
