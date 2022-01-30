@@ -11,8 +11,10 @@ import Grid from '@mui/material/Grid';
 // import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-
+import { useState } from 'react';
+import axios from "axios";
 function Copyright(props) {
+  
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
@@ -28,8 +30,22 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function DisplayResult() {
-  
-
+  const [open,SetOpen] = useState(0)
+  const [close,setClose] = useState(0)
+  const [high,setHigh] = useState(0)
+  const [low,setLow] = useState(0)
+  const [volume,setVolume]=useState(0)
+const handleSubmit =async(e)=>
+{
+  e.preventDefault()
+  const values=[open,
+  high,
+  close,
+  low,
+  volume]
+  const res = await axios.post("http://127.0.0.1:5000/predict",values)
+  alert(res.data.message)
+}
   return (
     <ThemeProvider theme={theme}>
       <Grid container component="main" sx={{ height: '100vh' }}>
@@ -50,6 +66,8 @@ export default function DisplayResult() {
         />
         <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
           <Box
+          component="form"
+          
             sx={{
               my: 8,
               mx: 4,
@@ -67,11 +85,13 @@ export default function DisplayResult() {
                 margin="normal"
                 required
                 fullWidth
+                type="number"
                 color="primary"
                 id="open"
                 label="Open"
                 name="open"
-               
+               value={open}
+               onChange={(e)=> SetOpen(Number(e.target.value))}
                 autoFocus
               />
               <TextField
@@ -80,9 +100,9 @@ export default function DisplayResult() {
                 fullWidth
                 name="high"
                 label="High"
-                type="high"
+                type="number"
                 id="high"
-               
+                onChange={(e)=> setHigh(Number(e.target.value))}
               />
               <TextField
                 margin="normal"
@@ -90,8 +110,9 @@ export default function DisplayResult() {
                 fullWidth
                 name="low"
                 label="Low"
-                type="low"
+                type="number"
                 id="low"
+                onChange={(e)=> setLow(Number(e.target.value))}
                
               />
               <TextField
@@ -100,9 +121,9 @@ export default function DisplayResult() {
               fullWidth
               name="close"
               label="Close"
-              type="close"
+              type="number"
               id="close"
-             
+              onChange={(e)=> setClose(Number(e.target.value))}
             />
             <TextField
             margin="normal"
@@ -110,13 +131,14 @@ export default function DisplayResult() {
             fullWidth
             name="volume"
             label="Volume"
-            type="volume"
+            type="number"
             id="volume"
-           
+            onChange={(e)=> setVolume(Number(e.target.value))}
           />
               <Button
                 type="submit"
                 fullWidth
+                onClick={handleSubmit}
                 variant="contained"
                 style={{
                     borderRadius:"99999px"
