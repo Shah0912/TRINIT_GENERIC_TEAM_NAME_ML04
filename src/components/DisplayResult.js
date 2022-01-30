@@ -48,11 +48,11 @@ const handleSubmit =async(e)=>
   console.log(res.data.message[1])
   if(res.data.message[1]==='0')
   {
-    alert("buy the stock")
+    alert("ignore the stock")
   }
  else if(res.data.message[1]==='1')
   {
-    alert("ignore the stock")
+    alert("buy the stock")
   }
 }
   return (
