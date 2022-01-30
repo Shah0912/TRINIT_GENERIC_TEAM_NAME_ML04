@@ -38,13 +38,22 @@ export default function DisplayResult() {
 const handleSubmit =async(e)=>
 {
   e.preventDefault()
-  const values=[open,
-  high,
-  close,
-  low,
-  volume]
+  
+  const values=[Number(close),
+  Number(volume),
+  Number(open),
+  Number(high),
+  Number(low)]
   const res = await axios.post("http://127.0.0.1:5000/predict",values)
-  alert(res.data.message)
+  console.log(res.data.message[1])
+  if(res.data.message[1]==='0')
+  {
+    alert("buy the stock")
+  }
+ else if(res.data.message[1]==='1')
+  {
+    alert("ignore the stock")
+  }
 }
   return (
     <ThemeProvider theme={theme}>
@@ -85,45 +94,48 @@ const handleSubmit =async(e)=>
                 margin="normal"
                 required
                 fullWidth
-                type="number"
+                type="text"
                 color="primary"
                 id="open"
                 label="Open"
                 name="open"
                value={open}
-               onChange={(e)=> SetOpen(Number(e.target.value))}
+               onChange={(e)=> SetOpen(e.target.value)}
                 autoFocus
               />
               <TextField
                 margin="normal"
+                type="text"
                 required
                 fullWidth
                 name="high"
                 label="High"
-                type="number"
+                
                 id="high"
-                onChange={(e)=> setHigh(Number(e.target.value))}
+                onChange={(e)=> setHigh(e.target.value)}
               />
               <TextField
                 margin="normal"
                 required
                 fullWidth
+                type="text"
                 name="low"
                 label="Low"
-                type="number"
+                
                 id="low"
-                onChange={(e)=> setLow(Number(e.target.value))}
+                onChange={(e)=> setLow(e.target.value)}
                
               />
               <TextField
               margin="normal"
               required
+              type="text"
               fullWidth
               name="close"
               label="Close"
-              type="number"
+              
               id="close"
-              onChange={(e)=> setClose(Number(e.target.value))}
+              onChange={(e)=> setClose(e.target.value)}
             />
             <TextField
             margin="normal"
@@ -131,9 +143,9 @@ const handleSubmit =async(e)=>
             fullWidth
             name="volume"
             label="Volume"
-            type="number"
+            type="text"
             id="volume"
-            onChange={(e)=> setVolume(Number(e.target.value))}
+            onChange={(e)=> setVolume(e.target.value)}
           />
               <Button
                 type="submit"
